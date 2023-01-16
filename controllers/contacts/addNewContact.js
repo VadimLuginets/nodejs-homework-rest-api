@@ -1,16 +1,16 @@
-const schemas = require("../../schemas/schemas");
-const { Contact } = require("../../db/contactModel");
+const { post } = require("../../schemas/contacts/index");
+const { Contact } = require("../../db/models/contactModel");
 async function addNewContact(req, res, next) {
   try {
-    const isValidData = schemas.post.validate(req.body);
+    const isValidData = post.validate(req.body);
     if (isValidData.error) {
-      return res.status(400).json({ status: validationResult.error });
+      return res.status(400).json({ msg: "Validation error" });
     }
+    const owner = req.user._id;
     const newContact = req.body;
     const { name, email, phone } = newContact;
-    const contact = new Contact({ name, email, phone });
+    const contact = new Contact({ name, email, phone, owner });
     await contact.save();
-    // await db.addContact(newContact);
     res.status(201).json(newContact);
   } catch (error) {
     return res.status(400).json({ status: "error" });
