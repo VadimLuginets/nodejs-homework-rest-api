@@ -6,6 +6,10 @@ function authMidleWare(req, res, next) {
   try {
     const [tokenType, token] = req.headers["authorization"].split(" ");
 
+    if (tokenType !== "Bearer") {
+      next(authError(res));
+    }
+
     if (!token) {
       next(authError(res));
     }
