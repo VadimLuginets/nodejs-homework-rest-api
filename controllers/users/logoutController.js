@@ -6,6 +6,10 @@ const { authError } = require("../../helpers/errors/index");
 async function logoutController(req, res) {
   try {
     const [tokenType, token] = req.headers["authorization"].split(" ");
+    if (tokenType !== "Bearer") {
+      console.log("invalid token type");
+      return authError(res);
+    }
     if (!token) {
       return authError(res);
     }
