@@ -1,5 +1,4 @@
-const schemas = require("../../schemas/schemas");
-const { Contact } = require("../../db/contactModel");
+const { Contact } = require("../../db/models/contactModel");
 async function getContactsById(req, res, next) {
   const { contactId } = req.params;
   const contact = await Contact.find({ _id: contactId });

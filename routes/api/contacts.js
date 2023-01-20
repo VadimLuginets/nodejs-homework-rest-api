@@ -1,4 +1,3 @@
-const { json } = require("express");
 const express = require("express");
 const {
   getListContacts,
@@ -7,9 +6,12 @@ const {
   deleteContactById,
   changeContactById,
   updateStatusContact,
-} = require("../../controllers/index");
+} = require("../../controllers/contacts/index");
+const { authMidleWare } = require("../../middlewares/auth/index");
 
 const router = express.Router();
+
+router.use(authMidleWare);
 
 router.get("/", async (req, res, next) => {
   getListContacts(req, res, next);

@@ -1,8 +1,8 @@
-const schemas = require("../../schemas/schemas");
-const { Contact } = require("../../db/contactModel");
+const { patch } = require("../../schemas/contacts/index");
+const { Contact } = require("../../db/models/contactModel");
 async function updateStatusContact(req, res, next) {
   try {
-    const isValidData = schemas.patch.validate(req.body);
+    const isValidData = patch.validate(req.body);
     if (isValidData.error) {
       return res.status(400).json({ message: "missing field favorite" });
     }
