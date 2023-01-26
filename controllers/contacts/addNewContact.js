@@ -1,5 +1,6 @@
 const { post } = require("../../schemas/contacts/index");
 const { Contact } = require("../../db/models/contactModel");
+
 async function addNewContact(req, res, next) {
   try {
     const isValidData = post.validate(req.body);
