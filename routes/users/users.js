@@ -6,6 +6,8 @@ const {
   logoutController,
   checkCurrentUserController,
   avatarChangeController,
+  verifyUserController,
+  resendEmailVerificationController,
 } = require("../../controllers/users/index");
 const { authMidleWare } = require("../../middlewares/auth/index");
 
@@ -33,18 +35,26 @@ router.post("/signup", async (req, res, next) => {
   registationController(req, res, next);
 });
 
-router.get("/logout", async (req, res, next) => {
-  logoutController(req, res, next);
+router.post("/verify", async (req, res, next) => {
+  resendEmailVerificationController(req, res, next);
 });
 
-router.get("/current", async (req, res, next) => {
-  checkCurrentUserController(req, res, next);
+router.get("/verify/:verificationToken", async (req, res, next) => {
+  verifyUserController(req, res, next);
 });
 
 router.use(authMidleWare);
 
 router.post("/avatars", saveAvatar.single("avatar"), async (req, res, next) => {
   avatarChangeController(req, res, next);
+});
+
+router.get("/logout", async (req, res, next) => {
+  logoutController(req, res, next);
+});
+
+router.get("/current", async (req, res, next) => {
+  checkCurrentUserController(req, res, next);
 });
 
 module.exports = router;
